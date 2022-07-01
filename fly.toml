@@ -1,9 +1,12 @@
 # fly.toml file generated for nara-discord-bot on 2022-07-01T22:41:58+02:00
 
 app = "nara-discord-bot"
-kill_signal = "SIGTERM"
+kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
+
+[deploy]
+  strategy = "bluegreen"
 
 [env]
   PHX_HOST = "nara-discord-bot.fly.dev"
@@ -34,7 +37,7 @@ processes = []
     port = 443
 
   [[services.tcp_checks]]
-    grace_period = "15s"
+    grace_period = "30s"
     interval = "15s"
     restart_limit = 5
     timeout = "2s"

@@ -16,8 +16,8 @@ defmodule DiscordBot.Application do
       {Phoenix.PubSub, name: DiscordBot.PubSub},
       # Start the Endpoint (http/https)
       DiscordBotWeb.Endpoint,
-      {Horde.Registry, [name: Nara.HordeRegistry, keys: :unique, members: :auto]},
       {Cluster.Supervisor, [topologies, [name: DiscordBot.ClusterSupervisor]]},
+      {Horde.Registry, [name: Nara.HordeRegistry, keys: :unique, members: :auto]},
       DistributedNostrum.ProcessGroupSingleton
     ]
 

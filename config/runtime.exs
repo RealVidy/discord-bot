@@ -13,10 +13,6 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
 end
 
 if config_env() == :prod do
-  app_name =
-    System.get_env("FLY_APP_NAME") ||
-      raise "FLY_APP_NAME not available"
-
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
   # want to use a different value for prod and you most likely don't want
@@ -29,18 +25,13 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "example.com"
+  host = System.get_env("PHX_HOST") || "nara-discord-bot.fly.dev"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :discord_bot, DiscordBotWeb.Endpoint,
-    url: [host: host, port: 443],
+    url: [host: host, port: 80],
     http: [
-      # Enable IPv6 and bind on all interfaces.
-      # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
-      # See the documentation on https://hexdocs.pm/plug_cowboy/Plug.Cowboy.html
-      # for details about using IPv6 vs IPv4 and loopback vs public addresses.
-      ip: {0, 0, 0, 0, 0, 0, 0, 1},
-      port: port,
+      port: String.to_integer(System.get_env("PORT") || "4000"),
       # IMPORTANT: support IPv6 addresses
       transport_options: [socket_opts: [:inet6]]
     ],
@@ -49,13 +40,22 @@ if config_env() == :prod do
   config :libcluster,
     debug: true,
     topologies: [
-      fly6pn: [
+      discord_bot: [
         strategy: Cluster.Strategy.DNSPoll,
         config: [
           # default is 5_000
           # polling_interval: 5_000,
-          query: "#{app_name}.internal",
-          node_basename: app_name
+          query: "nara-discord-bot.internal",
+          node_basename: "nara-discord-bot"
+        ]
+      ],
+      nara_secondary: [
+        strategy: Cluster.Strategy.DNSPoll,
+        config: [
+          # default is 5_000
+          # polling_interval: 5_000,
+          query: "nara-secondary.internal",
+          node_basename: "nara-secondary"
         ]
       ]
     ]
