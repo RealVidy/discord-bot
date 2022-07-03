@@ -31,7 +31,7 @@ if config_env() == :prod do
   config :discord_bot, DiscordBotWeb.Endpoint,
     url: [host: host, port: 80],
     http: [
-      port: String.to_integer(System.get_env("PORT") || "4000"),
+      port: port,
       # IMPORTANT: support IPv6 addresses
       transport_options: [socket_opts: [:inet6]]
     ],

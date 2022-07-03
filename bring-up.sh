@@ -1,3 +1,3 @@
 #! /usr/bin/env bash
 
-fly scale count 2
+fly scale count 3
