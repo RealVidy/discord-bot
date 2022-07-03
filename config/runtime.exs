@@ -46,7 +46,7 @@ if config_env() == :prod do
           # default is 5_000
           # polling_interval: 5_000,
           query: "nara-discord-bot.internal",
-          node_basename: "nara-discord-bot"
+          node_basename: "discord_bot"
         ]
       ],
       nara_secondary: [
