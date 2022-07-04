@@ -13,6 +13,10 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
 end
 
 if config_env() == :prod do
+  app_name =
+    System.get_env("FLY_APP_NAME") ||
+      raise "FLY_APP_NAME not available"
+
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
   # want to use a different value for prod and you most likely don't want
@@ -45,8 +49,15 @@ if config_env() == :prod do
         config: [
           # default is 5_000
           # polling_interval: 5_000,
-          query: "nara-discord-bot.internal",
-          node_basename: "discord_bot"
+          query: "#{app_name}.internal",
+          node_basename: app_name
+        ]
+      ],
+      nara_primary: [
+        strategy: Cluster.Strategy.DNSPoll,
+        config: [
+          query: "nara.internal",
+          node_basename: "nara"
         ]
       ],
       nara_primary: [
