@@ -49,11 +49,16 @@ if config_env() == :prod do
           node_basename: "discord_bot"
         ]
       ],
+      nara_primary: [
+        strategy: Cluster.Strategy.DNSPoll,
+        config: [
+          query: "nara.internal",
+          node_basename: "nara"
+        ]
+      ],
       nara_secondary: [
         strategy: Cluster.Strategy.DNSPoll,
         config: [
-          # default is 5_000
-          # polling_interval: 5_000,
           query: "nara-secondary.internal",
           node_basename: "nara-secondary"
         ]
