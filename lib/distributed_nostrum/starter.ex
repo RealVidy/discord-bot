@@ -8,6 +8,7 @@ defmodule DistributedNostrum.Starter do
   alias DistributedNostrum.Bot
   alias DistributedNostrum.Cache.ChannelCache
   alias DistributedNostrum.Cache.GuildCache
+  alias DistributedNostrum.Api
   alias DistributedNostrum.ConsumerSupervisor
 
   require Logger
@@ -33,6 +34,7 @@ defmodule DistributedNostrum.Starter do
     GuildCache.start_link([])
     ChannelCache.start_link([])
     Bot.start_link([])
+    Api.start_link([])
 
     {:noreply, state}
   end
