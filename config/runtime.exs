@@ -60,13 +60,6 @@ if config_env() == :prod do
           node_basename: "nara"
         ]
       ],
-      nara_primary: [
-        strategy: Cluster.Strategy.DNSPoll,
-        config: [
-          query: "nara.internal",
-          node_basename: "nara"
-        ]
-      ],
       nara_secondary: [
         strategy: Cluster.Strategy.DNSPoll,
         config: [
