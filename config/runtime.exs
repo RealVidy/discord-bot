@@ -97,7 +97,7 @@ config :logger, :console,
   metadata: [:mfa]
 
 config :discord_bot, :distributed_nostrum,
-  required_bot_perms: 285_232_144,
+  required_bot_perms: 8,
   bot_id: String.to_integer(System.get_env("DISCORD_CLIENT_ID", "0"))
 
 config :discord_bot,
